@@ -14,6 +14,10 @@
         <span>可租工位</span>
         <strong>{{ stats.available_workstations }}</strong>
       </button>
+      <button type="button" class="stat-card" @click="$emit('navigate', 'workstations')">
+        <span>已租工位</span>
+        <strong>{{ stats.leased_workstations }}</strong>
+      </button>
       <button type="button" class="stat-card" @click="$emit('navigate', 'contracts')">
         <span>履行合同</span>
         <strong>{{ stats.active_contracts }}</strong>
@@ -26,8 +30,20 @@
         <span>逾期金额</span>
         <strong>{{ currency(stats.overdue_amount) }}</strong>
       </button>
+      <button type="button" class="stat-card expiry-critical" @click="$emit('navigate', 'reminders')">
+        <span>7天内到期</span>
+        <strong>{{ stats.expiring_critical || 0 }}</strong>
+      </button>
+      <button type="button" class="stat-card expiry-warning" @click="$emit('navigate', 'reminders')">
+        <span>15天内到期</span>
+        <strong>{{ stats.expiring_warning || 0 }}</strong>
+      </button>
+      <button type="button" class="stat-card expiry-attention" @click="$emit('navigate', 'reminders')">
+        <span>30天内到期</span>
+        <strong>{{ stats.expiring_attention || 0 }}</strong>
+      </button>
       <button type="button" class="stat-card" @click="$emit('navigate', 'reminders')">
-        <span>30天到期</span>
+        <span>到期总计</span>
         <strong>{{ stats.expiring_contracts }}</strong>
       </button>
     </div>
@@ -55,4 +71,6 @@ async function load() {
 }
 
 onMounted(load)
+
+defineExpose({ load })
 </script>

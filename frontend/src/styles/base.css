@@ -149,6 +149,36 @@ button {
   color: #b42318;
 }
 
+.stat-card.expiry-critical {
+  background: #fef3f2;
+  border-color: #fecdca;
+}
+
+.stat-card.expiry-critical span,
+.stat-card.expiry-critical strong {
+  color: #b42318;
+}
+
+.stat-card.expiry-warning {
+  background: #fff9ed;
+  border-color: #ffe4a1;
+}
+
+.stat-card.expiry-warning span,
+.stat-card.expiry-warning strong {
+  color: #8a5a00;
+}
+
+.stat-card.expiry-attention {
+  background: #eff8ff;
+  border-color: #b9ddff;
+}
+
+.stat-card.expiry-attention span,
+.stat-card.expiry-attention strong {
+  color: #1d5f8f;
+}
+
 .form-grid {
   display: grid;
   gap: 10px;
@@ -186,12 +216,48 @@ td small {
   margin-top: 3px;
 }
 
+tr.row-critical {
+  background: #fff5f5;
+}
+
+tr.row-warning {
+  background: #fffdf2;
+}
+
+tr.row-attention {
+  background: #f5faff;
+}
+
 .status-badge {
   border-radius: 6px;
   display: inline-block;
   min-width: 52px;
   padding: 5px 8px;
   text-align: center;
+}
+
+.risk-badge {
+  border-radius: 6px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+.risk-critical {
+  background: #fde8e7;
+  color: #b42318;
+}
+
+.risk-warning {
+  background: #fff4d6;
+  color: #7a5200;
+}
+
+.risk-attention {
+  background: #e1f0fa;
+  color: #1d5f8f;
 }
 
 .status-available,
@@ -226,6 +292,81 @@ td small {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
+.risk-groups {
+  display: grid;
+  gap: 18px;
+}
+
+.risk-group {
+  border: 1px solid #d9e0e7;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.risk-group-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+}
+
+.risk-group-header.critical {
+  background: #fef3f2;
+  border-bottom: 1px solid #fecdca;
+}
+
+.risk-group-header.critical h3 {
+  color: #b42318;
+}
+
+.risk-group-header.warning {
+  background: #fff9ed;
+  border-bottom: 1px solid #ffe4a1;
+}
+
+.risk-group-header.warning h3 {
+  color: #8a5a00;
+}
+
+.risk-group-header.attention {
+  background: #eff8ff;
+  border-bottom: 1px solid #b9ddff;
+}
+
+.risk-group-header.attention h3 {
+  color: #1d5f8f;
+}
+
+.risk-group-header h3 {
+  margin: 0;
+}
+
+.risk-group-count {
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 2px 10px;
+}
+
+.risk-group-header.critical .risk-group-count {
+  background: #b42318;
+  color: #ffffff;
+}
+
+.risk-group-header.warning .risk-group-count {
+  background: #8a5a00;
+  color: #ffffff;
+}
+
+.risk-group-header.attention .risk-group-count {
+  background: #1d5f8f;
+  color: #ffffff;
+}
+
+.risk-group-body {
+  padding: 12px 16px;
+}
+
 .split-grid h3 {
   margin: 0 0 12px;
 }
@@ -244,9 +385,90 @@ td small {
   padding: 14px;
 }
 
+.list-item.critical-line {
+  background: #fff5f5;
+  border-color: #fecdca;
+}
+
+.list-item.warning-line {
+  background: #fffdf2;
+  border-color: #ffe4a1;
+}
+
+.list-item.attention-line {
+  background: #f5faff;
+  border-color: #b9ddff;
+}
+
 .list-item span,
 .empty {
   color: #607080;
+}
+
+.days-tag {
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+}
+
+.days-tag.critical {
+  background: #b42318;
+  color: #ffffff;
+}
+
+.days-tag.warning {
+  background: #b38600;
+  color: #ffffff;
+}
+
+.days-tag.attention {
+  background: #1d5f8f;
+  color: #ffffff;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.small-button {
+  font-size: 13px;
+  min-height: 30px;
+  padding: 5px 10px;
+}
+
+.small-button.primary {
+  background: #1d5f8f;
+  border-color: #1d5f8f;
+  color: #ffffff;
+}
+
+.small-button.danger {
+  background: #b42318;
+  border-color: #b42318;
+  color: #ffffff;
+}
+
+.renew-dialog {
+  background: #ffffff;
+  border: 1px solid #d9e0e7;
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(23, 32, 42, 0.12);
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 16px;
+}
+
+.renew-dialog h4 {
+  margin: 0;
+}
+
+.renew-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
 }
 
 .error {
@@ -254,6 +476,14 @@ td small {
   border: 1px solid #f6b8b3;
   border-radius: 6px;
   color: #9f1d14;
+  padding: 10px 12px;
+}
+
+.success {
+  background: #e7f6ec;
+  border: 1px solid #a7dcba;
+  border-radius: 6px;
+  color: #1b6b35;
   padding: 10px 12px;
 }
 

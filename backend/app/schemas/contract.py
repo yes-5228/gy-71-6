@@ -32,5 +32,22 @@ class ContractRead(ContractBase):
     status: str
     signed_at: datetime
     workstation: WorkstationRead | None = None
+    expiry_risk: str | None = None
+    days_until_expiry: int | None = None
 
     model_config = {"from_attributes": True}
+
+
+class ExpiringContractGroup(BaseModel):
+    risk_level: str
+    risk_label: str
+    threshold_days: int
+    contracts: list[ContractRead]
+    count: int
+
+
+class ExpiringContractGroups(BaseModel):
+    critical: ExpiringContractGroup
+    warning: ExpiringContractGroup
+    attention: ExpiringContractGroup
+    total_count: int

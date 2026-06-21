@@ -7,6 +7,7 @@ from app.models.contract import Contract
 from app.models.payment import Payment
 from app.models.workstation import Workstation
 from app.schemas.dashboard import DashboardStats
+from app.services.expiry_service import count_by_risk
 from app.services.payment_service import refresh_overdue_payments
 
 
@@ -31,11 +32,13 @@ def get_dashboard_stats(db: Session) -> DashboardStats:
     overdue_amount = db.scalar(
         select(func.coalesce(func.sum(Payment.amount), 0)).where(Payment.status == "overdue")
     ) or 0
-    expiring_contracts = db.scalar(
-        select(func.count())
-        .select_from(Contract)
+
+    expiring_stmt = (
+        select(Contract)
         .where(Contract.status == "active", Contract.end_date >= today, Contract.end_date <= soon)
-    ) or 0
+    )
+    expiring_list = list(db.scalars(expiring_stmt).all())
+    risk_counts = count_by_risk(expiring_list, today)
 
     return DashboardStats(
         total_workstations=total_workstations,
@@ -44,5 +47,8 @@ def get_dashboard_stats(db: Session) -> DashboardStats:
         active_contracts=active_contracts,
         unpaid_amount=float(unpaid_amount),
         overdue_amount=float(overdue_amount),
-        expiring_contracts=expiring_contracts,
+        expiring_contracts=risk_counts["critical"] + risk_counts["warning"] + risk_counts["attention"],
+        expiring_critical=risk_counts["critical"],
+        expiring_warning=risk_counts["warning"],
+        expiring_attention=risk_counts["attention"],
     )
